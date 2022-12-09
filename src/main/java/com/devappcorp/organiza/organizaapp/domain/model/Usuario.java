@@ -1,8 +1,9 @@
 package com.devappcorp.organiza.organizaapp.domain.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,12 +34,9 @@ public class Usuario {
 
     private String afiliacao;
 
-    @ManyToMany 
-    @JoinTable( 
-        name = "usarios_tipos", 
-        joinColumns = @JoinColumn(
-          name = "usuario_id", referencedColumnName = "id"), 
-        inverseJoinColumns = @JoinColumn(
-          name = "tipo_usuario_id", referencedColumnName = "id"))
-    private List<TipoUsuario> tiposUsuario = new ArrayList<>();
+    private String senha;
+
+    @ManyToOne
+    @JoinColumn(name="tipo_usuario_id")
+    private TipoUsuario tipoUsuario;
 }
