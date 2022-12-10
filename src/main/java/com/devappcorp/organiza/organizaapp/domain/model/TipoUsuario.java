@@ -21,7 +21,4 @@ public class TipoUsuario {
     private Long id;
 
     private String nome;
-    
-    @ManyToMany(mappedBy = "tiposUsuario")
-    private List<Usuario> usuarios = new ArrayList<>();
 }
