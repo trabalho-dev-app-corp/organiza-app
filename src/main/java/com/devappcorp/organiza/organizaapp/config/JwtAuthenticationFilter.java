@@ -1,6 +1,5 @@
 package com.devappcorp.organiza.organizaapp.config;
 
-import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

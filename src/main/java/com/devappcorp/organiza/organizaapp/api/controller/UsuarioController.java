@@ -1,5 +1,6 @@
 package com.devappcorp.organiza.organizaapp.api.controller;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,8 @@ import com.devappcorp.organiza.organizaapp.domain.service.UsuarioService;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+    Logger logger;
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -32,16 +35,15 @@ public class UsuarioController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> generateToken(@RequestBody LoginUsuario loginUsuario) throws AuthenticationException {
-
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginUsuario.getUsername(),
-                        loginUsuario.getPassword()
+                        loginUsuario.getLogin(),
+                        loginUsuario.getSenha()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateToken(authentication);
-        return ResponseEntity.ok(new AuthToken(token));
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/register")

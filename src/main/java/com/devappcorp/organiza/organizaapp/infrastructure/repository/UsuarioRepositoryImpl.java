@@ -16,8 +16,6 @@ import org.springframework.stereotype.Repository;
 import com.devappcorp.organiza.organizaapp.domain.model.Usuario;
 import com.devappcorp.organiza.organizaapp.domain.repository.UsuarioRepositoryQueries;
 
-import antlr.StringUtils;
-
 @Repository
 public class UsuarioRepositoryImpl implements UsuarioRepositoryQueries{
 
