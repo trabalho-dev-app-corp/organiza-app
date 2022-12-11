@@ -3,6 +3,7 @@ package com.devappcorp.organiza.organizaapp.domain.model;
 import java.sql.Date;
 import java.sql.Time;
 
+import Espaco;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,9 +30,11 @@ public class Atividade {
     
     private String descricao;
     
-    private Date data;
+    private Date data_atv;
 
-    private Time horarioInicial;
+    private Time horario_inicial;
 
-    private Time horarioFinal;
+    private Time horario_final;
+
+    
 }

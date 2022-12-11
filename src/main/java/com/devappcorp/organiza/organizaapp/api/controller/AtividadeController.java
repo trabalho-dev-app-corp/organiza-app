@@ -22,5 +22,13 @@ import com.devappcorp.organiza.organizaapp.domain.repository.AtividadeRepository
 @RestController
 @RequestMapping("/atividades")
 public class AtividadeController {
+
+    @Autowired
+    private AtividadeRepository AtividadeRepository;
+
+    @GetMapping
+    public List<Atividade> listar() {
+        return AtividadeRepository.findAll();
+    }
     
 }
