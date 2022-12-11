@@ -32,12 +32,4 @@ public class Usuario {
 
     private String afiliacao;
 
-    @ManyToMany 
-    @JoinTable( 
-        name = "usarios_tipos", 
-        joinColumns = @JoinColumn(
-          name = "usuario_id", referencedColumnName = "id"), 
-        inverseJoinColumns = @JoinColumn(
-          name = "tipo_usuario_id", referencedColumnName = "id"))
-    private List<TipoUsuario> tiposUsuario = new ArrayList<>();
 }
