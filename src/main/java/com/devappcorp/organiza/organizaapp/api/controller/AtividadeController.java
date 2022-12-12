@@ -31,4 +31,44 @@ public class AtividadeController {
         return AtividadeRepository.findAll();
     }
     
+    @GetMapping("/{atividadeId}")
+    public ResponseEntity<Atividade> buscar(@PathVariable("atividadeId") Long atividadeId) {
+        Atividade atividade = AtividadeRepository.findById(atividadeId).get();
+
+        if (atividade != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(atividade);
+        } 
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Atividade> adicionar(@RequestBody Atividade atividade) {
+        AtividadeRepository.save(atividade);
+        return ResponseEntity.status(HttpStatus.CREATED).body(atividade);
+    }
+
+    @PutMapping("/{atividadeId}")
+    public ResponseEntity<Atividade> editar(@PathVariable("atividadeId") Long atividadeId, @RequestBody Atividade atividadeInfo) {
+        Atividade atividade = AtividadeRepository.findById(atividadeId).get();
+
+        atividade.setNome(atividadeInfo.getNome());
+        atividade.setTipo(atividadeInfo.getTipo());
+        atividade.setDescricao(atividadeInfo.getDescricao());
+        atividade.setData_atv(atividadeInfo.getData_atv());
+        atividade.setHorario_inicial(atividadeInfo.getHorario_inicial());
+        atividade.setHorario_final(atividadeInfo.getHorario_final());
+        final Atividade atividadeAtualizado = AtividadeRepository.save(atividade);
+        return ResponseEntity.ok(atividadeAtualizado);
+    }
+
+    @DeleteMapping("/{atividadeId}")
+    public Map<String, Boolean> deletar(@PathVariable("atividadeId") Long atividadeId) {
+        Atividade atividade = AtividadeRepository.findById(atividadeId).get();
+
+        AtividadeRepository.delete(atividade);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Atividade Deletada", Boolean.TRUE);
+        return response;
+    }
 }
