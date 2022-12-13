@@ -3,7 +3,6 @@ package com.devappcorp.organiza.organizaapp.domain.model;
 import java.sql.Date;
 import java.sql.Time;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
