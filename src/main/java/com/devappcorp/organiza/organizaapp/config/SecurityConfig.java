@@ -11,11 +11,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.devappcorp.organiza.organizaapp.domain.service.UnauthorizedEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -23,44 +25,30 @@ import com.devappcorp.organiza.organizaapp.domain.service.UnauthorizedEntryPoint
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Lazy
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private UnauthorizedEntryPoint unauthorizedEntryPoint;
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable() 
+        http
                 .authorizeRequests()
-                .antMatchers("/..").permitAll()
+                .antMatchers("/usuarios/authenticate", "/usuarios/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
+                .httpBasic();
     }
 
     @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+    protected UserDetailsService userDetailsService() {
+        UserDetails annaSmith = User.builder()  
+            .username("anna")
+            .password(passwordEncoder.encode("girl"))
+            .roles("STUDENT")
+            .build();
 
-    @Bean
-    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
-        return new JwtAuthenticationFilter();
+        return new InMemoryUserDetailsManager(
+            annaSmith
+        );
     }
 
 }
