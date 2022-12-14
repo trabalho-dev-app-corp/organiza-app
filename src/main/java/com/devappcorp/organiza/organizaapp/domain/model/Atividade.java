@@ -28,9 +28,11 @@ public class Atividade {
     
     private String descricao;
     
-    private Date data;
+    private Date data_atv;
 
-    private Time horarioInicial;
+    private Time horario_inicial;
 
-    private Time horarioFinal;
+    private Time horario_final;
+
+    
 }
