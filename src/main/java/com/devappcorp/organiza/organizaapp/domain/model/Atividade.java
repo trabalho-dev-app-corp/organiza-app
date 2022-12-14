@@ -15,7 +15,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 
-
 public class Atividade {
         
     @Id
@@ -34,5 +33,5 @@ public class Atividade {
 
     private Time horario_final;
 
-    
+    private String local;
 }

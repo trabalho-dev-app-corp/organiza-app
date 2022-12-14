@@ -58,6 +58,7 @@ public class AtividadeController {
         atividade.setData_atv(atividadeInfo.getData_atv());
         atividade.setHorario_inicial(atividadeInfo.getHorario_inicial());
         atividade.setHorario_final(atividadeInfo.getHorario_final());
+
         final Atividade atividadeAtualizado = AtividadeRepository.save(atividade);
         return ResponseEntity.ok(atividadeAtualizado);
     }
