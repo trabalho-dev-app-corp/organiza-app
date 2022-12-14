@@ -2,4 +2,4 @@ insert into evento (nome, sigla, descricao) values ("evento 1", "e1", "primeiro 
 insert into evento (nome, sigla, descricao) values ("evento 2", "e2", "primeiro evento");
 insert into evento (nome, sigla, descricao) values ("evento 3", "e3", "primeiro evento");
 
-insert into usuario (role, password, username, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, nome, email, afiliacao) values ("ADMIN", "girl", "linda", 1, 1, 1, 1, "linda perera", "linda@gmail.com", "creuzo");
+insert into organiza.atividade (nome, tipo, descricao, data_atv, horario_inicial, horario_final) values ("atividade 011", "primeira atividade", "adasdasds", "2019-01-01", "10:00:00", "11:00:00");
