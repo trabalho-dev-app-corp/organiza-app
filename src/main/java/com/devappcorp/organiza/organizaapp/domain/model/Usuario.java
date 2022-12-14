@@ -1,5 +1,11 @@
 package com.devappcorp.organiza.organizaapp.domain.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,19 +13,40 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Usuario {
-    
+public class Usuario implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String login;
+    private String role;
+    
+    private String password;
+
+    private String username;
+
+    @JsonIgnore
+    private Boolean isAccountNonExpired = true;
+
+    @JsonIgnore
+    private Boolean isAccountNonLocked = true;
+
+    @JsonIgnore
+    private Boolean isCredentialsNonExpired = true;
+
+    @JsonIgnore
+    private Boolean isEnabled = true;
 
     private String nome;
 
@@ -27,9 +54,42 @@ public class Usuario {
 
     private String afiliacao;
 
-    private String senha;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 
-    @ManyToOne
-    @JoinColumn(name="tipo_usuario_id")
-    private TipoUsuario tipoUsuario;
+        list.add(new SimpleGrantedAuthority("ROLE_" + role));
+
+        return list;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isAccountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 }
