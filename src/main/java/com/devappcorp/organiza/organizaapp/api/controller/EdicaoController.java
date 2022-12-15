@@ -1,3 +1,4 @@
+
 package com.devappcorp.organiza.organizaapp.api.controller;
 
 import java.util.List;
@@ -46,3 +47,4 @@ public class EdicaoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(edicao);
     }
 }
+
