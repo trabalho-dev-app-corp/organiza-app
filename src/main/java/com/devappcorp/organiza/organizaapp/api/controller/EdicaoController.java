@@ -11,10 +11,7 @@ import com.devappcorp.organiza.organizaapp.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-=======
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,12 +20,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
->>>>>>> b6088021bcf9c053783e0d7414381976000bdd3c
 
 import com.devappcorp.organiza.organizaapp.domain.model.Edicao;
-//import com.devappcorp.organiza.organizaapp.domain.model.Edicao;
+
 import com.devappcorp.organiza.organizaapp.domain.repository.EdicaoRepository;
-//import com.devappcorp.organiza.organizaapp.domain.repository.EdicaoRepository;
+
 
 @RestController
 @RequestMapping("/edicoes")
