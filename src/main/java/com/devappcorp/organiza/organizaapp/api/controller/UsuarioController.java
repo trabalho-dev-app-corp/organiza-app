@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.devappcorp.organiza.organizaapp.domain.model.Usuario;
 import com.devappcorp.organiza.organizaapp.domain.repository.UsuarioRepository;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -30,5 +29,10 @@ public class UsuarioController {
         usuarioEncriptado.setPassword(encoder.encode(usuario.getPassword()));
         usuarioRepository.save(usuarioEncriptado);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioEncriptado);
+    }
+
+    @GetMapping
+    public List<Usuario> listar(){
+        return usuarioRepository.findAll();
     }
 }
