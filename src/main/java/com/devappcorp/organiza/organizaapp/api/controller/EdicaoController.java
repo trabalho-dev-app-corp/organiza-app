@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.devappcorp.organiza.organizaapp.domain.DTO.OrganizadorDTO;
 import com.devappcorp.organiza.organizaapp.domain.model.Evento;
 import com.devappcorp.organiza.organizaapp.domain.model.Usuario;
 import com.devappcorp.organiza.organizaapp.domain.repository.EventoRepository;
@@ -91,10 +92,16 @@ public class EdicaoController {
         return ResponseEntity.ok(edicao.getEvento());
     }
 
+    @GetMapping("/{edicaoId}/organizador")
+    public ResponseEntity<Usuario> retornarOrganizador(@PathVariable("edicaoId") Long edicaoId){
+        Edicao edicao = edicaoRepository.findById(edicaoId).get();
+        return ResponseEntity.ok(edicao.getOrganizador());
+    }
 
-    @PostMapping("/{eventoId}/organizador")
-    public ResponseEntity<Usuario> autorizarOrganizador(@PathVariable Long edicaoId, @RequestParam Long usuarioId){
-        Usuario organizador = usuarioRepository.findById(usuarioId).get();
+
+    @PostMapping("/{edicaoId}/organizador")
+    public ResponseEntity<Usuario> autorizarOrganizador(@PathVariable Long edicaoId, @RequestBody OrganizadorDTO organizadorDTO){
+        Usuario organizador = usuarioRepository.findById(organizadorDTO.getOrganizadorId()).get();
         Edicao edicao = edicaoRepository.findById(edicaoId).get();
         edicao.setOrganizador(organizador);
         edicaoRepository.save(edicao);
