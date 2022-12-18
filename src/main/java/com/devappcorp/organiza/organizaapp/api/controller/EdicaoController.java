@@ -1,4 +1,3 @@
-
 package com.devappcorp.organiza.organizaapp.api.controller;
 
 import java.util.HashMap;
@@ -12,8 +11,19 @@ import com.devappcorp.organiza.organizaapp.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> b6088021bcf9c053783e0d7414381976000bdd3c
 
 import com.devappcorp.organiza.organizaapp.domain.model.Edicao;
 //import com.devappcorp.organiza.organizaapp.domain.model.Edicao;
@@ -47,11 +57,6 @@ public class EdicaoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @GetMapping("/{edicaoId}/evento")
-    public ResponseEntity<Evento> retornarEvento(@PathVariable("edicaoId") Long edicaoId){
-        Edicao edicao = edicaoRepository.findById(edicaoId).get();
-        return ResponseEntity.ok(edicao.getEvento());
-    }
 
     @PostMapping
     @Transactional
@@ -60,6 +65,36 @@ public class EdicaoController {
         edicaoRepository.save(edicao);
         return ResponseEntity.status(HttpStatus.CREATED).body(edicao);
     }
+
+    @PutMapping("/{edicaoId}")
+    @Transactional
+    public ResponseEntity<Edicao> editar(@RequestBody Edicao edicaoAtualizada, @PathVariable Long edicaoId){
+        Edicao edicao = edicaoRepository.findById(edicaoId).get();
+
+        edicao.setNumero(edicaoAtualizada.getNumero());
+        edicao.setAno(edicaoAtualizada.getAno());
+        edicao.setDataInicial(edicaoAtualizada.getDataInicial());
+        edicao.setDataFinal(edicaoAtualizada.getDataFinal());
+        edicao.setCidade(edicaoAtualizada.getCidade());
+        return ResponseEntity.ok(edicaoRepository.save(edicao));
+    }
+
+    @DeleteMapping("/{edicaoId}")
+    public Map<String, Boolean> deletar(@PathVariable("edicaoId") Long edicaoId) {
+        Edicao edicao = edicaoRepository.findById(edicaoId).get();
+
+        edicaoRepository.delete(edicao);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deletado", Boolean.TRUE);
+        return response;
+    }
+
+    @GetMapping("/{edicaoId}/evento")
+    public ResponseEntity<Evento> retornarEvento(@PathVariable("edicaoId") Long edicaoId){
+        Edicao edicao = edicaoRepository.findById(edicaoId).get();
+        return ResponseEntity.ok(edicao.getEvento());
+    }
+
 
     @PostMapping("/{eventoId}/organizador")
     public ResponseEntity<Usuario> autorizarOrganizador(@PathVariable Long edicaoId, @RequestParam Long usuarioId){
@@ -81,38 +116,6 @@ public class EdicaoController {
         return response;
     }
 
-    @PutMapping("/{edicaoId}")
-    @Transactional
-    public ResponseEntity<Edicao> editar(@RequestBody Edicao edicaoAtualizada, @PathVariable Long edicaoId){
-        Edicao edicao = edicaoRepository.findById(edicaoId).get();
-
-        edicao.setNumero(edicaoAtualizada.getNumero());
-        edicao.setAno(edicaoAtualizada.getAno());
-        edicao.setDataInicial(edicaoAtualizada.getDataInicial());
-        edicao.setDataFinal(edicaoAtualizada.getDataFinal());
-        edicao.setCidade(edicaoAtualizada.getCidade());
-        return ResponseEntity.ok(edicaoRepository.save(edicao));
-    }
-
-    @DeleteMapping
-    public Map<String, Boolean> deletar(@PathVariable Long edicaoId){
-        Edicao edicao = edicaoRepository.findById(edicaoId).get();
-        edicaoRepository.delete(edicao);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deletado", Boolean.TRUE);
-        return response;
-    }
-
-    @PutMapping("/{edicaoId}/evento/{eventoId}")
-    public ResponseEntity<Edicao> adicionarEvento(@PathVariable Long edicaoId, @PathVariable Long eventoId){
-        Edicao edicao = edicaoRepository.findById(edicaoId).get();
-        Evento evento = eventoRepository.findById(eventoId).get();
-        edicao.setEvento(evento);
-        return ResponseEntity.ok(edicaoRepository.save(edicao));
-    }
-
-
 
 
 }
-
