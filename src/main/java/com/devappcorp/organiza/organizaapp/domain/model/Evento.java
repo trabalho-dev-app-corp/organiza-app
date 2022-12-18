@@ -3,6 +3,7 @@ package com.devappcorp.organiza.organizaapp.domain.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -28,7 +29,6 @@ public class Evento {
     private String descricao;
 
     @OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
-    @JsonManagedReference
-
+    @JsonIgnore
     private List<Edicao> edicoes = new ArrayList<>();
 }

@@ -3,6 +3,7 @@ package com.devappcorp.organiza.organizaapp.domain.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -29,12 +30,13 @@ public class Edicao {
 
     private String cidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "evento_id")
-    @JsonBackReference
+    @JsonIgnore
     private Evento evento;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizador_id")
+    @JsonIgnore
     private Usuario organizador;
 }
