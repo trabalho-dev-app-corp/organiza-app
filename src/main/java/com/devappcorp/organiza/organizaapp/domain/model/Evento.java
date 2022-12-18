@@ -1,17 +1,20 @@
 package com.devappcorp.organiza.organizaapp.domain.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Evento {
     
     @Id
@@ -23,4 +26,9 @@ public class Evento {
     private String sigla;
     
     private String descricao;
+
+    @OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
+    @JsonManagedReference
+
+    private List<Edicao> edicoes = new ArrayList<>();
 }
