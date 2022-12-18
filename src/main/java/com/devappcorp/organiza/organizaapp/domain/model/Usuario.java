@@ -5,13 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -53,6 +47,9 @@ public class Usuario implements UserDetails{
     private String email;
 
     private String afiliacao;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Edicao> edicoesQueOrganiza;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

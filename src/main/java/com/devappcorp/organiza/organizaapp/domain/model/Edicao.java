@@ -2,18 +2,18 @@ package com.devappcorp.organiza.organizaapp.domain.model;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 @Table(name = "edicoes")
 @Entity(name = "Edicao")
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Edicao {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,12 +23,18 @@ public class Edicao {
 
     private int ano;
 
-    private Date dataInicial;
+    private String dataInicial;
 
-    private Date dataFinal;
+    private String dataFinal;
 
     private String cidade;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "evento_id")
+    @JsonBackReference
+    private Evento evento;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organizador_id")
+    private Usuario organizador;
 }
