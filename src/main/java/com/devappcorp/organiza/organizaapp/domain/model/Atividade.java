@@ -34,4 +34,6 @@ public class Atividade {
     private Time horario_final;
 
     private String local;
+
+    private String favorito;
 }

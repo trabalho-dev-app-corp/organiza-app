@@ -25,7 +25,7 @@ public class AtividadeController {
 
     @Autowired
     private AtividadeRepository AtividadeRepository;
-
+    
     @GetMapping
     public List<Atividade> listar() {
         return AtividadeRepository.findAll();
@@ -72,4 +72,35 @@ public class AtividadeController {
         response.put("Atividade Deletada", Boolean.TRUE);
         return response;
     }
+
+    @PutMapping("/favoritos/{atividadeId}")
+    public ResponseEntity<Atividade> favoritar(@PathVariable("atividadeId") Long atividadeId, @RequestBody Atividade atividadeInfo) {
+        Atividade atividade = AtividadeRepository.findById(atividadeId).get();
+
+        atividade.setFavorito(atividadeInfo.getFavorito());
+
+        final Atividade atividadeAtualizado = AtividadeRepository.save(atividade);
+        return ResponseEntity.ok(atividadeAtualizado);
+    }
+    
+    // @GetMapping("/favoritos")
+    // public String listarFav() {
+        
+    //     String[] listaAtv = new String[0];
+    //     int cont = 0;
+    //     for (Atividade atividade : AtividadeRepository.findAll()) {
+    //         if (atividade.getFavorito() == "1") {
+                
+    //             listaAtv[cont] = atividade.getNome();
+    //             listaAtv[2] = "aggaga";
+
+    //         }
+    //         cont++;
+    //     }
+        
+
+    //     return listaAtv[2];
+    // }
+
+
 }
