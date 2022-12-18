@@ -10,9 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -24,8 +21,4 @@ public class TipoUsuario {
     private Long id;
 
     private String nome;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "tipoUsuario")
-    private List<Usuario> usuarios = new ArrayList<>();
 }
