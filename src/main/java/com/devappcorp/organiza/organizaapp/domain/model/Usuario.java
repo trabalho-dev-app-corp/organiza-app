@@ -55,6 +55,12 @@ public class Usuario implements UserDetails{
     @JsonIgnore
     private List<Edicao> edicoesQueOrganiza;
 
+    @ManyToMany
+    @JoinTable(name = "atividade_usuario",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+    private List<Atividade> atividades;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();

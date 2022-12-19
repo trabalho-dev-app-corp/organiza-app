@@ -1,5 +1,6 @@
 package com.devappcorp.organiza.organizaapp.api.controller;
 
+import com.devappcorp.organiza.organizaapp.domain.model.Atividade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,14 @@ public class UsuarioController {
     @GetMapping
     public List<Usuario> listar(){
         return usuarioRepository.findAll();
+    }
+
+    @PutMapping("/favoritos/{usuarioId}")
+    public ResponseEntity<Usuario> editar(@PathVariable("usuarioId") Long usuarioId, @RequestBody Usuario usuarioInfo) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).get();
+        usuario.setAtividades(usuarioInfo.getAtividades());
+
+        final Usuario usuarioAtualizado = usuarioRepository.save(usuario);
+        return ResponseEntity.ok(usuarioAtualizado);
     }
 }
