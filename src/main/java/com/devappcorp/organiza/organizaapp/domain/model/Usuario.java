@@ -51,6 +51,13 @@ public class Usuario implements UserDetails{
 
     private String afiliacao;
 
+
+    @ManyToMany
+    @JoinTable(name = "atividade_usuario",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+    private List<Atividade> atividades;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
