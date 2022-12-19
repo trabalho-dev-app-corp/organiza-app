@@ -9,3 +9,11 @@ Senha: Senha2
 
 Usuário do Banco: root
 Senha do Banco: root
+
+Grupo:
+Vitor Prado
+Daniel Bendito Neves
+Juliana Scapim
+Joel Lopes
+Lucas Natan
+Walber Capaci
