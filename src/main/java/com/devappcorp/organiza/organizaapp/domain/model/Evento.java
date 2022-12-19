@@ -27,8 +27,4 @@ public class Evento {
     private String sigla;
     
     private String descricao;
-
-    @OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Edicao> edicoes = new ArrayList<>();
 }

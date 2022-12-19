@@ -51,10 +51,6 @@ public class Usuario implements UserDetails{
 
     private String afiliacao;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Edicao> edicoesQueOrganiza;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();

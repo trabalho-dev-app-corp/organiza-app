@@ -73,6 +73,8 @@ public class EdicaoController {
         edicao.setDataInicial(edicaoAtualizada.getDataInicial());
         edicao.setDataFinal(edicaoAtualizada.getDataFinal());
         edicao.setCidade(edicaoAtualizada.getCidade());
+        edicao.setEvento(edicaoAtualizada.getEvento());
+        edicao.setOrganizador(edicaoAtualizada.getOrganizador());
         return ResponseEntity.ok(edicaoRepository.save(edicao));
     }
 
